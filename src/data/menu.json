@@ -1,0 +1,10 @@
+{
+    "data": {
+        "name": "Menu",
+        "href": "menu.html",
+        "visible": true
+    },
+    "imports": [
+        "partials/menu"
+    ]
+}

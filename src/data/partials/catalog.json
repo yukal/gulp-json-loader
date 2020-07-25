@@ -1,0 +1,11 @@
+{
+    "data": {
+        "name": "Catalog",
+        "href": "#catalog",
+        "visible": true
+    },
+    "imports": [
+        "partials/catalog_1",
+        "partials/catalog_2"
+    ]
+}

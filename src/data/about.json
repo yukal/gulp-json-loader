@@ -1,0 +1,10 @@
+{
+    "data": {
+        "name": "About Us",
+        "href": "about-us.html",
+        "visible": true
+    },
+    "imports": [
+        "partials/genres"
+    ]
+}

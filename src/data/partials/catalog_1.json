@@ -1,0 +1,32 @@
+[
+    {
+        "img": "book-01.png",
+        "title": "Duel",
+        "info": "Prose, 1986 р.",
+        "href": "#"
+    },
+    {
+        "img": "book-02.png",
+        "title": "Vita Nova",
+        "info": "Prose, 1957 р.",
+        "href": "#"
+    },
+    {
+        "img": "book-03.jpg",
+        "title": "The Ukrainian Folk Dance",
+        "info": "Folklore, 1980 р.",
+        "href": "#"
+    },
+    {
+        "img": "book-04.jpg",
+        "title": "The Moscow Games of 1980",
+        "info": "Politology, 1981 р.",
+        "href": "#"
+    },
+    {
+        "img": "book-05.jpg",
+        "title": "Young Ukraine",
+        "info": "Periodicals, 1965 р.",
+        "href": "#"
+    }
+]
