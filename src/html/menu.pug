@@ -1,0 +1,15 @@
+block content
+    //- - console.log(data)
+
+    div= filename
+    div: a(href=data.href)= data.name
+
+    ul.menu
+
+        each m in data.imports.menu
+            if m.active
+                li.nav-item.active
+                    a.nav-link(href=m.href)= m.name
+            else
+                li.nav-item
+                    a.nav-link(href=m.href)= m.name
