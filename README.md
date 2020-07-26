@@ -90,7 +90,8 @@ Somewhere in json file:
 Somewhere in pug file:
 ```pug
 block content
-    // As a result, you will be able to access the <data> variable
+    // As a result, you will be able to access the <data> variable.
+    // All imported data will be available in the data.imports namespace
     //- - console.log(data)
 
     div= filename
