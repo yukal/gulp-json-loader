@@ -10,7 +10,7 @@ function html() {
         .pipe(plugins.pug({
             pretty: true
         }))
-        .pipe(gulp.dest('dest'))
+        .pipe(gulp.dest('dist'))
     ;
 }
 
