@@ -5,7 +5,7 @@
         "visible": true
     },
     "imports": [
-        "partials/catalog_1",
-        "partials/catalog_2"
+        "catalog/catalog_1",
+        "catalog/catalog_2"
     ]
 }

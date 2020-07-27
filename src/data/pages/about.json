@@ -5,6 +5,6 @@
         "visible": true
     },
     "imports": [
-        "partials/genres"
+        "genres"
     ]
 }
