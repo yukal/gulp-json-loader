@@ -1,6 +1,6 @@
 # gulp-json-loader
 A little tool for the [gulp-data](https://www.npmjs.com/package/gulp-data) plugin. 
-It useful for automatically data loading in the development including the PUG pages.
+It useful for automatically data loading in the development including the PUG files.
 
 ### What for
 I tried to find any simple solution to assign my variables to a current PUG file in a building 
