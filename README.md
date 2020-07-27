@@ -3,7 +3,7 @@ A little tool for the [gulp-data](https://www.npmjs.com/package/gulp-data) plugi
 It useful for automatically data loading in the development including the PUG pages.
 
 ### What for
-I tried to find any simple solution to assign my variables to a current Html file in a building 
+I tried to find any simple solution to assign my variables to a current PUG file in a building 
 process, but some of the solutions are the same with solutions between the 2014th and 2019th 
 years and, actually do not satisfy my needs as I want. And the most popular solution I have 
 found looks like:
@@ -21,35 +21,43 @@ in a [detailed article](https://tusharghate.com/rendering-pug-templates-with-mul
 but still not satisfied.
 
 So, what's wrong with these solutions?
-First of all, any time, when the queue reaches to Html part, it starts the merging process of 
-all the json files. Each any Html file, Carl! It means that sometimes the process is performing 
-unnecessary actions. What if you don't need to include the data in some of the files, it still 
+First of all, any time, when the queue reaches to Html part, it starts the merging process of all 
+the JSON files. Each any Html file, Carl! It means that sometimes the process is performing 
+unnecessary actions. What if you don't need to include the data in some of the Html file, it still 
 will run enforced actions, any time, again and again, merge... merge... merge. Yes, you can solve 
-it by running a once merge, and then always include it as a combined object from the json file, 
-as the solution in an article above. But it still not a good solution to including the json file 
-there where you should not include.
+it by running a once merge, and then always include it as a combined object from the JSON file, as 
+the solution in an article above. But it still not a good solution to including the JSON file there 
+where you should not include.
 
-So I decided to fix this problem in my vision.
+And I decided to fix this problem in my vision.
 
 ### How does it work
-When the build process's queue reaches Html, it automatically searches the json file with the 
-same name as Html in the data directory.
+When the build process's queue reaches Html, it automatically searches the JSON file with the same 
+name as in the directory with Html files, or PUG files (it depends on how you set up your project).
 
 ### Structure
-To automatically asigning data to the pages, you must be following the canonical paths. The json data 
-directory structure must be exactly the same as the Html directory structure. If you missed the 
-file in data-directory it would be ignored and the data loading is will not happen, but then would 
-raise an error if you try to access your data from the Html file while the building process is 
-running.
+To automatically asigning data to the pages, you must be following the canonical paths. The 
+structure of directory with the JSON files should contains with two required folders inside: 
+**pages** and **imports**. The **pages** directory structure must be exactly the same structure as 
+the directory with PUG files. Here in example the PUG files located in **html** directory. The 
+**imports** directory is provided for the JSON files which you can include as a partial data.
+If you missed any of the JSON files in the data/pages directory, the loading of the JSON files will 
+not happen and the error will not rise except one thing - It would not happen if you will not try 
+to get the data variable from current context while the building process is running.
 
 ```bash
-src                  src
-├─ data              ├─ html
-└─ html              └─ data
-   ├─ about.pug         ├─ about.json
-   ├─ menu.pug          ├─ menu.json
-   └─ partials          └─ partials
-      └─ ...               └─ ...
+src                 src
+├─ ...              ├─ ...
+└─ html             └─ data
+   │                   ├─ imports
+   │                   │  └─ ...
+   │                   └─ pages
+   │                      │
+   ├─ about.pug           ├─ about.json
+   ├─ menu.pug            ├─ menu.json
+   ├─ without_data.pug    ├─ [ empty ]   // no data provided
+   └─ subdir              └─ subdir
+      └─ ...                 └─ ...
 ```
 
 ### Usage
@@ -58,7 +66,13 @@ Somewhere in gulpfile.js:
 ```javascript
 const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
-const jsonLoader = require('./lib/gulp-json-loader')(__dirname);
+const jsonLoaderFactory = require('./lib/gulp-json-loader');
+const jsonLoader = jsonLoaderFactory({
+    // sourcePath: __dirname,
+    pathHtml: 'src/html',
+    pathData: 'src/data',
+    report: true,
+});
 
 function html() {
     return gulp.src('src/html/**/*.pug')
