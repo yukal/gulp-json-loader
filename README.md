@@ -52,7 +52,6 @@ src                 src
    │                   ├─ imports
    │                   │  └─ ...
    │                   └─ pages
-   │                      │
    ├─ about.pug           ├─ about.json
    ├─ menu.pug            ├─ menu.json
    ├─ without_data.pug    ├─ [ empty ]   // no data provided
@@ -125,3 +124,11 @@ $ gulp html
 ### TODO
 To avoid collisions with the same file names, we should split the responsibility of pages 
 and libraries in the data directory using the nested paths cutting them with a dot symbol.
+
+## Libraries Using `gulp-json-loader`
+
+- [gulp-data](https://www.npmjs.com/package/gulp-data)
+
+## License
+
+[MIT License](http://en.wikipedia.org/wiki/MIT_License)
