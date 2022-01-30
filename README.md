@@ -119,6 +119,9 @@ block content
 Run command to build html page with data
 ```bash
 $ gulp html
+
+# Or
+$ npx gulp html
 ```
 
 ### TODO
