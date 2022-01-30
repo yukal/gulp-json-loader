@@ -1,10 +1,10 @@
 {
-    "data": {
-        "name": "About Us",
-        "href": "about-us.html",
-        "visible": true
-    },
-    "imports": [
-        "genres"
-    ]
+  "data": {
+    "name": "About Us",
+    "href": "about-us.html",
+    "visible": true
+  },
+  "imports": [
+    "genres"
+  ]
 }

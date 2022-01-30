@@ -1,25 +1,25 @@
 block content
-    //- - console.log(data)
+  //- - console.log(data)
 
-    div= filename
-    div: a(href=data.href)= data.name
+  div= filename
+  div: a(href=data.href)= data.name
 
-    .catalog-1
+  .catalog-1
 
-        each c in data.imports.catalog_1
-            .catalog-item
-                a.catalog-img-link(href=c.href)
-                    img(src="assets/img/"+c.img)
-                .catalog-info
-                    p.catalog-text= c.info
-                    a.catalog-title(href=c.href)= c.title
+    each c in data.imports.catalog_1
+      .catalog-item
+        a.catalog-img-link(href=c.href)
+          img(src="assets/img/"+c.img)
+        .catalog-info
+          p.catalog-text= c.info
+          a.catalog-title(href=c.href)= c.title
 
-    .catalog-2
+  .catalog-2
 
-        each c in data.imports.catalog_2
-            .catalog-item
-                a.catalog-img-link(href=c.href)
-                    img(src="assets/img/"+c.img)
-                .catalog-info
-                    p.catalog-text= c.info
-                    a.catalog-title(href=c.href)= c.title
+    each c in data.imports.catalog_2
+      .catalog-item
+        a.catalog-img-link(href=c.href)
+          img(src="assets/img/"+c.img)
+        .catalog-info
+          p.catalog-text= c.info
+          a.catalog-title(href=c.href)= c.title

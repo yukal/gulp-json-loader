@@ -1,32 +1,32 @@
 [
-    {
-        "name": "Catalog",
-        "href": "catalog.html",
-        "visible": true,
-        "active": true
-    },
-    {
-        "name": "About Us",
-        "href": "about-us.html",
-        "visible": true,
-        "active": false
-    },
-    {
-        "name": "Donate",
-        "href": "#donate",
-        "visible": true,
-        "active": false
-    },
-    {
-        "name": "Contacts",
-        "href": "#contacts",
-        "visible": false,
-        "active": false
-    },
-    {
-        "name": "RSS",
-        "href": "http://domain.zone/feed/",
-        "visible": true,
-        "active": false
-    }
+  {
+    "name": "Catalog",
+    "href": "catalog.html",
+    "visible": true,
+    "active": true
+  },
+  {
+    "name": "About Us",
+    "href": "about-us.html",
+    "visible": true,
+    "active": false
+  },
+  {
+    "name": "Donate",
+    "href": "#donate",
+    "visible": true,
+    "active": false
+  },
+  {
+    "name": "Contacts",
+    "href": "#contacts",
+    "visible": false,
+    "active": false
+  },
+  {
+    "name": "RSS",
+    "href": "http://domain.zone/feed/",
+    "visible": true,
+    "active": false
+  }
 ]
