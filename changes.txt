@@ -9,3 +9,13 @@ v1.1.0:
 - Updated dependencies
   - gulp-load-plugins: ^2.0.7
   - gulp-pug: ^5.0.0
+
+- Improvement of variables names
+  - To distinguish variables from stylistic PAG syntax it is preferable to name
+    variables in a different way as opposed to decoration text. That's why I name 
+    variables with a capital letter and a dollar sign at the beginning.
+    See PUG files to find out more about it.
+
+  - The entry name of the Data loaded from the JSON file is defined in a global
+    space as a "data" entry, now you can change this name as you like.
+    See package.json and PUG files to find out more about it.
