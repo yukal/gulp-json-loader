@@ -88,12 +88,7 @@ const jsonLoaderSettings = {
 const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
 const jsonLoaderFactory = require('./lib/gulp-json-loader');
-const jsonLoader = jsonLoaderFactory({
-    // sourcePath: __dirname,
-    pathHtml: 'src/html',
-    pathData: 'src/data',
-    report: true,
-});
+const jsonLoader = jsonLoaderFactory(jsonLoaderSettings);
 
 function html() {
     return gulp.src('src/html/**/*.pug')
