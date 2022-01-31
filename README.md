@@ -125,12 +125,12 @@ block content
     //- - console.log(data)
 
     div= filename
-    div: a(href=data.href)= data.name
+    div: a(href = $.href)= $.name
 
     ul.genres
-        each Genre in data.imports.genres
+        each $GenreItem in $.imports.genres
             li
-                a(href=Genre.href)= Genre.name
+                a(href = $GenreItem.href)= $GenreItem.name
 ```
 
 Run command to build html page with data
