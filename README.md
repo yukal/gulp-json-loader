@@ -63,6 +63,28 @@ src                 src
 
 Somewhere in gulpfile.js:
 ```javascript
+// It is optional now, but you able to tune it as you wish.
+// You can pass the settings by an object, or you can pass it using package.json
+const jsonLoaderSettings = {
+    // Chose where the source files are located.
+    // Use sourcePath or the pare of pathHtml and pathData
+
+    // sourcePath: 'src',
+    pathHtml: 'src/html',
+    pathData: 'src/data',
+
+    // The namespace where the Data is located.
+    // To get some loaded data from the JSON in a PUG context use syntax:
+    // $.href or $.imports.menu
+    dataEntry: '$',
+
+    // It needs for the Date object to show a local date
+    locales: 'en-GB',
+
+    // Will report about the loaded JSON files
+    report: true,
+};
+
 const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
 const jsonLoaderFactory = require('./lib/gulp-json-loader');
