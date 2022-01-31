@@ -1,10 +1,10 @@
 {
-    "data": {
-        "name": "Menu",
-        "href": "menu.html",
-        "visible": true
-    },
-    "imports": [
-        "menu"
-    ]
+  "data": {
+    "name": "Menu",
+    "href": "menu.html",
+    "visible": true
+  },
+  "imports": [
+    "menu"
+  ]
 }

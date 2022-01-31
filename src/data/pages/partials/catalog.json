@@ -1,11 +1,11 @@
 {
-    "data": {
-        "name": "Catalog",
-        "href": "#catalog",
-        "visible": true
-    },
-    "imports": [
-        "catalog/catalog_1",
-        "catalog/catalog_2"
-    ]
+  "data": {
+    "name": "Catalog",
+    "href": "#catalog",
+    "visible": true
+  },
+  "imports": [
+    "catalog/catalog_1",
+    "catalog/catalog_2"
+  ]
 }

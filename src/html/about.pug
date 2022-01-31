@@ -1,10 +1,10 @@
 block content
-    //- - console.log(data)
+  //- - console.log($)
 
-    div= filename
-    div: a(href=data.href)= data.name
+  div= filename
+  div: a(href = $.href)= $.name
 
-    ul.genres
-        each g in data.imports.genres
-            li
-                a(href=g.href)= g.name
+  ul.genres
+    each $GenreItem in $.imports.genres
+      li
+        a(href = $GenreItem.href)= $GenreItem.name

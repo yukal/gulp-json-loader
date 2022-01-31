@@ -1,15 +1,15 @@
 block content
-    //- - console.log(data)
+  //- - console.log($)
 
-    div= filename
-    div: a(href=data.href)= data.name
+  div= filename
+  div: a(href = $.href)= $.name
 
-    ul.menu
+  ul.menu
 
-        each m in data.imports.menu
-            if m.active
-                li.nav-item.active
-                    a.nav-link(href=m.href)= m.name
-            else
-                li.nav-item
-                    a.nav-link(href=m.href)= m.name
+    each $MenuItem in $.imports.menu
+      if $MenuItem.active
+        li.nav-item.active
+          a.nav-link(href = $MenuItem.href)= $MenuItem.name
+      else
+        li.nav-item
+          a.nav-link(href = $MenuItem.href)= $MenuItem.name

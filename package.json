@@ -2,16 +2,22 @@
   "name": "gulp-json-loader",
   "description": "A little tool for the gulp-data plugin. It useful for data loading in the development of HTML or the pug pages",
   "author": "Alexander Yukal <yukal@email.ua>",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "gulpfile.js",
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-data": "^1.3.1",
-    "gulp-load-plugins": "^2.0.3",
-    "gulp-pug": "^4.0.1"
+    "gulp-load-plugins": "^2.0.7",
+    "gulp-pug": "^5.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "gulp-json-loader": {
+    "sourcePath": "src",
+    "dataEntry": "$",
+    "locales": "ru-UA",
+    "report": true
   },
   "repository": {
     "type": "git",

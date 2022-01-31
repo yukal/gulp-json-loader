@@ -1,32 +1,32 @@
 [
-    {
-        "img": "book-06.jpg",
-        "title": "Theophanes daughter",
-        "info": "Prose, 1946 р.",
-        "href": "#"
-    },
-    {
-        "img": "book-07.jpg",
-        "title": "Love story",
-        "info": "Prose, 1947 р.",
-        "href": "#"
-    },
-    {
-        "img": "book-08.jpg",
-        "title": "Old world nobility",
-        "info": "History, 1999 р.",
-        "href": "#"
-    },
-    {
-        "img": "book-09.png",
-        "title": "Luzes na agua",
-        "info": "Prose, 1997 р.",
-        "href": "#"
-    },
-    {
-        "img": "book-10.png",
-        "title": "In the arms of Melpomene",
-        "info": "Prose, 1954 р.",
-        "href": "#"
-    }
+  {
+    "img": "book-06.jpg",
+    "title": "Theophanes daughter",
+    "info": "Prose, 1946 р.",
+    "href": "#"
+  },
+  {
+    "img": "book-07.jpg",
+    "title": "Love story",
+    "info": "Prose, 1947 р.",
+    "href": "#"
+  },
+  {
+    "img": "book-08.jpg",
+    "title": "Old world nobility",
+    "info": "History, 1999 р.",
+    "href": "#"
+  },
+  {
+    "img": "book-09.png",
+    "title": "Luzes na agua",
+    "info": "Prose, 1997 р.",
+    "href": "#"
+  },
+  {
+    "img": "book-10.png",
+    "title": "In the arms of Melpomene",
+    "info": "Prose, 1954 р.",
+    "href": "#"
+  }
 ]

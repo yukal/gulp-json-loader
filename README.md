@@ -63,15 +63,32 @@ src                 src
 
 Somewhere in gulpfile.js:
 ```javascript
+// It is optional now, but you able to tune it as you wish.
+// You can pass the settings by an object, or you can pass it using package.json
+const jsonLoaderSettings = {
+    // Chose where the source files are located.
+    // Use sourcePath or the pare of pathHtml and pathData
+
+    // sourcePath: 'src',
+    pathHtml: 'src/html',
+    pathData: 'src/data',
+
+    // The namespace where the Data is located.
+    // To get some loaded data from the JSON in a PUG context use syntax:
+    // $.href or $.imports.menu
+    dataEntry: '$',
+
+    // It needs for the Date object to show a local date
+    locales: 'en-GB',
+
+    // Will report about the loaded JSON files
+    report: true,
+};
+
 const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
 const jsonLoaderFactory = require('./lib/gulp-json-loader');
-const jsonLoader = jsonLoaderFactory({
-    // sourcePath: __dirname,
-    pathHtml: 'src/html',
-    pathData: 'src/data',
-    report: true,
-});
+const jsonLoader = jsonLoaderFactory(jsonLoaderSettings);
 
 function html() {
     return gulp.src('src/html/**/*.pug')
@@ -108,17 +125,20 @@ block content
     //- - console.log(data)
 
     div= filename
-    div: a(href=data.href)= data.name
+    div: a(href = $.href)= $.name
 
     ul.genres
-        each Genre in data.imports.genres
+        each $GenreItem in $.imports.genres
             li
-                a(href=Genre.href)= Genre.name
+                a(href = $GenreItem.href)= $GenreItem.name
 ```
 
 Run command to build html page with data
 ```bash
 $ gulp html
+
+# Or
+$ npx gulp html
 ```
 
 ### TODO
