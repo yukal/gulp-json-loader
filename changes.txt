@@ -1,0 +1,11 @@
+v1.1.0:
+- Updated core
+  - Imposed restrictions on accessing external directories.
+  - There is no need to pass the config data to GulpJsonLoader, now it's optional
+    and defined from defaults. But if you want to change them, you might tune it in
+    both ways: using an old-style passing an object with options to GulpJsonLoader
+    factory or just pass the settings into a package.json. See package.json.
+
+- Updated dependencies
+  - gulp-load-plugins: ^2.0.7
+  - gulp-pug: ^5.0.0
