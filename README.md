@@ -66,23 +66,23 @@ Somewhere in gulpfile.js:
 // It is optional now, but you able to tune it as you wish.
 // You can pass the settings by an object, or you can pass it using package.json
 const jsonLoaderSettings = {
-    // Chose where the source files are located.
-    // Use sourcePath or the pare of pathHtml and pathData
+  // Chose where the source files are located.
+  // Use sourcePath or the pare of pathHtml and pathData
 
-    // sourcePath: 'src',
-    pathHtml: 'src/html',
-    pathData: 'src/data',
+  // sourcePath: 'src',
+  pathHtml: 'src/html',
+  pathData: 'src/data',
 
-    // The namespace where the Data is located.
-    // To get some loaded data from the JSON in a PUG context use syntax:
-    // $.href or $.imports.menu
-    dataEntry: '$',
+  // The namespace where the Data is located.
+  // To get some loaded data from the JSON in a PUG context use syntax:
+  // $.href or $.imports.menu
+  dataEntry: '$',
 
-    // It needs for the Date object to show a local date
-    locales: 'en-GB',
+  // It needs for the Date object to show a local date
+  locales: 'en-GB',
 
-    // Will report about the loaded JSON files
-    report: true,
+  // Will report about the loaded JSON files
+  report: true,
 };
 
 const gulp = require('gulp');
@@ -91,46 +91,45 @@ const jsonLoaderFactory = require('./lib/gulp-json-loader');
 const jsonLoader = jsonLoaderFactory(jsonLoaderSettings);
 
 function html() {
-    return gulp.src('src/html/**/*.pug')
-        .pipe(plugins.data(jsonLoader))
-        .pipe(plugins.pug({
-            pretty: true
-        }))
-        .pipe(gulp.dest('dest'))
-    ;
+  return gulp.src('src/html/**/*.pug')
+    .pipe(plugins.data(jsonLoader))
+    .pipe(plugins.pug({
+      pretty: true
+    }))
+    .pipe(gulp.dest('dest'));
 }
 ```
 
 Somewhere in json file:
 ```javascript
 {
-    "data": {                         // Here, in the data node, you can add any data
-        "name": "Catalog",            // that belongs to your page
-        "href": "#catalog",
-        "visible": true
-    },
-    "imports": [                      // Sometimes you need to include other parts of the data.
-        "partials/catalog_1",         // To avoid the duplicate data you can split the files
-        "partials/catalog_2",         // and include them partially
-        "partials/genres"
-    ]
+  "data": {                       // Here, in the data node, you can add any data
+    "name": "Catalog",            // that belongs to your page
+    "href": "#catalog",
+    "visible": true
+  },
+  "imports": [                    // Sometimes you need to include other parts of the data.
+    "partials/catalog_1",         // To avoid the duplicate data you can split the files
+    "partials/catalog_2",         // and include them partially
+    "partials/genres"
+  ]
 }
 ```
 
 Somewhere in pug file:
 ```pug
 block content
-    // As a result, you will be able to access the <data> variable.
-    // All imported data will be available in the data.imports namespace
-    //- - console.log(data)
+  // As a result, you will be able to access the "$" variable.
+  // All imported data will be available in the $.imports namespace
+  //- - console.log($)
 
-    div= filename
-    div: a(href = $.href)= $.name
+  div= filename
+  div: a(href = $.href)= $.name
 
-    ul.genres
-        each $GenreItem in $.imports.genres
-            li
-                a(href = $GenreItem.href)= $GenreItem.name
+  ul.genres
+    each $GenreItem in $.imports.genres
+      li
+        a(href = $GenreItem.href)= $GenreItem.name
 ```
 
 Run command to build html page with data
