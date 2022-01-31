@@ -19,3 +19,6 @@ v1.1.0:
   - The entry name of the Data loaded from the JSON file is defined in a global
     space as a "data" entry, now you can change this name as you like.
     See package.json and PUG files to find out more about it.
+
+- Implemented data caching
+  - The data that has already been loaded will be getting from the cache
