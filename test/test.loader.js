@@ -1,5 +1,6 @@
 'use strict';
 
+const Path = require('path');
 const { assert, expect } = require('chai');
 const JsonLoader = require('../lib/gulp-json-loader');
 
@@ -7,7 +8,6 @@ const {
   constants,
   // BrushColors,
 
-  getAbsolutePath,
   brush,
   reportAction,
   loadImportsAsync,
@@ -18,105 +18,81 @@ const {
 
 const Imports = require('./data');
 
+const getAbsolutePath = (subdir) => Path.join(process.cwd(), subdir);
 const getPugFile = (filename) => ({
   path: getAbsolutePath(`./src/data/pages/${filename}.pug`)
 });
 
 describe('Gulp Json Loader', () => {
 
-  it('getAbsolutePath()', () => {
-    const absolutePath1 = getAbsolutePath('./src/html');
-    const expected1 = process.cwd() + '/src/html';
-
-    const absolutePath2 = getAbsolutePath('src', 'pug');
-    const expected2 = process.cwd() + '/src/pug';
-
-    expect(constants.APP_PATH).equal(process.cwd());
-    expect(absolutePath1).equal(expected1);
-    expect(absolutePath2).equal(expected2);
-  });
-
   describe('factory()', () => {
-    it('Run with default settings', () => {
+    it('init with default settings', () => {
       const testMode = true;
       const settings = undefined;
 
-      const bindData = JsonLoader(settings, testMode);
+      const { context } = JsonLoader(settings, testMode);
 
-      expect(bindData).property('pathHtml', getAbsolutePath('./src/html'));
-      expect(bindData).property('pathData', getAbsolutePath('./src/data'));
-      expect(bindData).property('sourcePath', 'src');
-      expect(bindData).property('dataEntry', '$');
-      expect(bindData).property('locales', 'ru-UA');
-      expect(bindData).property('CachedData').eql({});
-      expect(bindData).property('report', true);
+      expect(context).property('pathHtml', getAbsolutePath('./src/html'));
+      expect(context).property('pathData', getAbsolutePath('./src/data'));
+      expect(context).property('sourcePath', 'src');
+      expect(context).property('dataEntry', '$');
+      expect(context).property('locales', 'ru-UA');
+      expect(context).property('cachedData').eql({});
+      expect(context).property('report', true);
     });
 
-    it('Run with a specific Data entry', () => {
+    it('init with a specific Data entry', () => {
       const testMode = true;
       const settings = {
         dataEntry: '$Data',
       };
 
-      const bindData = JsonLoader(settings, testMode);
+      const { context } = JsonLoader(settings, testMode);
 
-      expect(bindData).property('pathHtml', getAbsolutePath('./src/html'));
-      expect(bindData).property('pathData', getAbsolutePath('./src/data'));
-      expect(bindData).property('sourcePath', 'src');
-      expect(bindData).property('dataEntry', '$Data');
-      expect(bindData).property('locales', 'en-EN');
-      expect(bindData).property('CachedData').eql({});
-      expect(bindData).property('report', true);
+      expect(context).property('dataEntry', '$Data');
     });
 
-    it('Run with a specific html & data paths', () => {
+    it('init with a specific html & data paths', () => {
       const testMode = true;
       const settings = {
         pathHtml: './src/pug',
         pathData: './src/json',
       };
 
-      const bindData = JsonLoader(settings, testMode);
+      const { context } = JsonLoader(settings, testMode);
 
-      expect(bindData).property('pathHtml', getAbsolutePath('./src/pug'));
-      expect(bindData).property('pathData', getAbsolutePath('./src/json'));
-      expect(bindData).property('sourcePath', 'src');
-      expect(bindData).property('dataEntry', 'data');
-      expect(bindData).property('locales', 'en-EN');
-      expect(bindData).property('CachedData').eql({});
-      expect(bindData).property('report', true);
+      expect(context).property('pathHtml', getAbsolutePath('./src/pug'));
+      expect(context).property('pathData', getAbsolutePath('./src/json'));
+      expect(context).property('dataEntry', 'data');
     });
 
-    it('Run with a specific source path', () => {
+    it('init with a specific source path', () => {
       const testMode = true;
       const settings = {
         sourcePath: 'source',
       };
 
-      const bindData = JsonLoader(settings, testMode);
+      const { context } = JsonLoader(settings, testMode);
 
-      expect(bindData).property('pathHtml', getAbsolutePath('./source/html'));
-      expect(bindData).property('pathData', getAbsolutePath('./source/data'));
-      expect(bindData).property('sourcePath', 'source');
-      expect(bindData).property('dataEntry', 'data');
-      expect(bindData).property('locales', 'en-EN');
-      expect(bindData).property('CachedData').eql({});
-      expect(bindData).property('report', true);
+      expect(context).property('pathHtml', getAbsolutePath('./source/html'));
+      expect(context).property('pathData', getAbsolutePath('./source/data'));
+      expect(context).property('sourcePath', 'source');
+      expect(context).property('dataEntry', 'data');
     });
 
-    it('Convert root sign into an internal path', () => {
+    it('convert root sign into an internal path', () => {
       const testMode = true;
       const settings = {
         sourcePath: '/',
       };
 
-      const bindData = JsonLoader(settings, testMode);
+      const { context } = JsonLoader(settings, testMode);
 
-      expect(bindData).property('pathHtml', getAbsolutePath('./html'));
-      expect(bindData).property('pathData', getAbsolutePath('./data'));
+      expect(context).property('pathHtml', getAbsolutePath('./html'));
+      expect(context).property('pathData', getAbsolutePath('./data'));
     });
 
-    it('throw an error on referencing an external path', () => {
+    it('throw error on referencing an external path', () => {
       const testMode = true;
       const settings = {
         sourcePath: '../',
@@ -126,22 +102,31 @@ describe('Gulp Json Loader', () => {
         JsonLoader(settings, testMode);
         assert.fail('should throw an error');
       } catch (error) {
-        expect(error.message).equal(constants.ERR_TOP_DIR);
+        expect(error.message).equal(constants.ERR_EXTERNAL_PATH);
       }
     });
   });
 
   describe('loadJsonData()', () => {
     it('successfully load JSON data', async () => {
-      const load = JsonLoader({ report: false });
-      const pocket = await load(getPugFile('about'));
+      const ctx = {
+        // sourcePath: 'src',
+        pathHtml: getAbsolutePath('./src/html'),
+        pathData: getAbsolutePath('./src/data'),
+        dataEntry: '$',
+        locales: 'en-EN',
+        cachedData: {},
+        report: false,
+      };
+
+      const pocket = await loadJsonData.call(ctx, getPugFile('about'));
 
       const cacheKeyImports = 'src/data/imports/genres.json';
       const cacheKeyData = 'src/data/pages/about.json';
 
       // Check out loaded data
       expect(pocket).property('filename', 'about');
-      expect(pocket).property('data').eql({
+      expect(pocket).property('$').eql({
         name: 'About Us',
         href: 'about-us.html',
         visible: true,
@@ -151,9 +136,114 @@ describe('Gulp Json Loader', () => {
       });
 
       // Check out cached data
-      // expect(CachedData).property(cacheKeyData).eql(pocket);
-      // expect(CachedData).property(cacheKeyImports).eql(pocket.$.imports.genres);
+      expect(ctx.cachedData).property(cacheKeyData).eql(pocket);
+      expect(ctx.cachedData).property(cacheKeyImports).eql(pocket.$.imports.genres);
     });
   });
 
+  describe('loadImportsAsync()', () => {
+    it('import from file', async () => {
+      const context = {
+        pathData: getAbsolutePath('./src/data'),
+        report: false,
+      };
+      const imports = ['genres'];
+      const cachedData = {};
+
+      const importedData = await loadImportsAsync(context, imports, cachedData);
+      const cacheKey = 'src/data/imports/genres.json';
+
+      expect(importedData).property('genres').eql(Imports.genres);
+      expect(cachedData).property(cacheKey).eql(Imports.genres);
+    });
+
+    it('import from cache', async () => {
+      const context = {
+        pathData: getAbsolutePath('./src/data'),
+        report: false,
+      };
+      const imports = ['genres'];
+      const cacheKey = 'src/data/imports/genres.json';
+      const cachedData = {
+        [cacheKey]: [
+          { href: '#href1', name: 'Caption1' },
+          { href: '#href2', name: 'Caption2' },
+        ]
+      };
+
+      const importedData = await loadImportsAsync(context, imports, cachedData);
+
+      expect(importedData).eql({
+        genres: cachedData[cacheKey]
+      });
+    });
+
+    it('return empty object on empty array passing', async () => {
+      const context = {};
+      const cachedData = {};
+      const imports = [];
+
+      const importedData = await loadImportsAsync(context, imports, cachedData);
+      expect(importedData).eql({});
+    });
+
+    it('throw error on non-array passed', async () => {
+      const context = {};
+      const cachedData = {};
+      const imports = undefined;
+
+      try {
+        await loadImportsAsync(context, imports, cachedData);
+        assert.fail('should throw an error');
+      } catch (err) {
+        expect(err.message).equal('Imports should be an Array');
+      }
+    });
+  });
+
+  describe('loadImportsRecursively()', () => {
+    it('successfully load data', async () => {
+      const cacheKeyMenu = 'src/data/imports/menu.json';
+      const cacheKeyGenres = 'src/data/imports/genres.json';
+
+      const options = {
+        ctx: {
+          pathData: getAbsolutePath('./src/data'),
+          report: false,
+        },
+        imports: ['menu', 'genres'],
+        pocket: {},
+        cachedData: {
+          [cacheKeyMenu]: Imports.menu
+        },
+      };
+
+      await loadImportsRecursively(options, (error, pocket) => {
+        expect(error).equal(null);
+
+        expect(pocket).property('menu').eql(Imports.menu);
+        expect(pocket).property('genres').eql(Imports.genres);
+
+        expect(options.cachedData).property(cacheKeyMenu);
+        expect(options.cachedData).property(cacheKeyGenres);
+      });
+    });
+
+    it('throw error on referencing an external path', async () => {
+      const options = {
+        ctx: {
+          pathData: getAbsolutePath('../'),
+          report: false,
+        },
+        imports: ['menu'],
+        pocket: {},
+        cachedData: {},
+      };
+
+      await loadImportsRecursively(options, (error, pocket) => {
+        expect(error.message).equal(constants.ERR_EXTERNAL_PATH);
+        expect(pocket).equal(null);
+      });
+    });
+  });
 });
