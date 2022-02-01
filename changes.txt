@@ -22,3 +22,5 @@ v1.1.0:
 
 - Implemented data caching
   - The data that has already been loaded will be getting from the cache
+
+- Added tests
