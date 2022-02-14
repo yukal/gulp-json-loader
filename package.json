@@ -12,6 +12,9 @@
     "gulp-pug": "^5.0.0",
     "mocha": "^9.2.0"
   },
+  "overrides": {
+    "glob-parent": "5.1.2"
+  },
   "scripts": {
     "test": "mocha --no-config --no-package ./test/**/test*.js"
   },
