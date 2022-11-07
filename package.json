@@ -5,15 +5,12 @@
   "version": "1.2.1",
   "main": "gulpfile.js",
   "devDependencies": {
-    "chai": "^4.3.6",
+    "chai": "^4.3.7",
     "gulp": "^4.0.2",
     "gulp-data": "^1.3.1",
-    "gulp-load-plugins": "^2.0.7",
+    "gulp-load-plugins": "^2.0.8",
     "gulp-pug": "^5.0.0",
-    "mocha": "^9.2.0"
-  },
-  "overrides": {
-    "glob-parent": "5.1.2"
+    "mocha": "^10.1.0"
   },
   "scripts": {
     "test": "mocha --no-config --no-package ./test/**/test*.js"
