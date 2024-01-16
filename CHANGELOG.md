@@ -1,4 +1,4 @@
-## [v1.2.1](https://github.com/yukal/slim-validator/compare/f7485d8fa2a84bc3ab4a2156ef62add21f8ae615...a6ca46f363d6f343b1941d5b25eaa31a0529542d) – 2024-01-16
+## [v1.2.1](https://github.com/yukal/gulp-json-loader/compare/f7485d8fa2a84bc3ab4a2156ef62add21f8ae615...a6ca46f363d6f343b1941d5b25eaa31a0529542d) – 2024-01-16
 
 ### Refactors
 
@@ -14,7 +14,7 @@
 - **action:**  use latest stable nodejs ([bf570a7a](https://github.com/yukal/gulp-json-loader/commit/bf570a7a3cb03f555916c05ec4faf83817627ba6))
 - **action:**  update node matrix ([a6ca46f3](https://github.com/yukal/gulp-json-loader/commit/a6ca46f363d6f343b1941d5b25eaa31a0529542d))
 
-## [v1.2.1](https://github.com/yukal/slim-validator/compare/v1.2.1...f7485d8fa2a84bc3ab4a2156ef62add21f8ae615)
+## [v1.2.1](https://github.com/yukal/gulp-json-loader/compare/v1.2.1...f7485d8fa2a84bc3ab4a2156ef62add21f8ae615)
 
 ### Build System / Dependencies
 
