@@ -1,7 +1,18 @@
 'use strict';
 
-const Path = require('path');
-const { assert, expect } = require('chai');
+// Use nodeJS native test modules, see:
+// 
+// https://nodejs.org/api/test.html
+// https://nodejs.org/api/assert.html
+// 
+// node@16: node --test ./test
+// node@18: node --test --experimental-test-coverage ./test
+//          node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=lcov.info
+
+const path = require('node:path');
+const assert = require('node:assert');
+const { describe, it } = require('node:test');
+
 const JsonLoader = require('../lib/gulp-json-loader');
 
 const {
@@ -18,13 +29,12 @@ const {
 
 const Imports = require('./data');
 
-const getAbsolutePath = (subdir) => Path.join(process.cwd(), subdir);
+const getAbsolutePath = (subdir) => path.join(process.cwd(), subdir);
 const getPugFile = (filename) => ({
   path: getAbsolutePath(`./src/data/pages/${filename}.pug`)
 });
 
 describe('Gulp Json Loader', () => {
-
   describe('factory()', () => {
     it('init with default settings', () => {
       const testMode = true;
@@ -32,13 +42,15 @@ describe('Gulp Json Loader', () => {
 
       const { context } = JsonLoader(settings, testMode);
 
-      expect(context).property('pathHtml', getAbsolutePath('./src/html'));
-      expect(context).property('pathData', getAbsolutePath('./src/data'));
-      expect(context).property('sourcePath', 'src');
-      expect(context).property('dataEntry', '$');
-      expect(context).property('locales', 'ru-UA');
-      expect(context).property('cachedData').eql({});
-      expect(context).property('report', true);
+      assert.deepEqual(context, {
+        pathHtml: getAbsolutePath('./src/html'),
+        pathData: getAbsolutePath('./src/data'),
+        sourcePath: 'src',
+        dataEntry: '$',
+        locales: 'uk-UA',
+        cachedData: {},
+        report: true,
+      });
     });
 
     it('init with a specific Data entry', () => {
@@ -48,8 +60,7 @@ describe('Gulp Json Loader', () => {
       };
 
       const { context } = JsonLoader(settings, testMode);
-
-      expect(context).property('dataEntry', '$Data');
+      assert.equal(context.dataEntry, '$Data');
     });
 
     it('init with a specific html & data paths', () => {
@@ -61,9 +72,9 @@ describe('Gulp Json Loader', () => {
 
       const { context } = JsonLoader(settings, testMode);
 
-      expect(context).property('pathHtml', getAbsolutePath('./src/pug'));
-      expect(context).property('pathData', getAbsolutePath('./src/json'));
-      expect(context).property('dataEntry', 'data');
+      assert.equal(context.pathHtml, getAbsolutePath('./src/pug'));
+      assert.equal(context.pathData, getAbsolutePath('./src/json'));
+      assert.equal(context.dataEntry, 'data');
     });
 
     it('init with a specific source path', () => {
@@ -74,10 +85,10 @@ describe('Gulp Json Loader', () => {
 
       const { context } = JsonLoader(settings, testMode);
 
-      expect(context).property('pathHtml', getAbsolutePath('./source/html'));
-      expect(context).property('pathData', getAbsolutePath('./source/data'));
-      expect(context).property('sourcePath', 'source');
-      expect(context).property('dataEntry', 'data');
+      assert.equal(context.pathHtml, getAbsolutePath('./source/html'));
+      assert.equal(context.pathData, getAbsolutePath('./source/data'));
+      assert.equal(context.sourcePath, 'source');
+      assert.equal(context.dataEntry, 'data');
     });
 
     it('convert root sign into an internal path', () => {
@@ -88,8 +99,8 @@ describe('Gulp Json Loader', () => {
 
       const { context } = JsonLoader(settings, testMode);
 
-      expect(context).property('pathHtml', getAbsolutePath('./html'));
-      expect(context).property('pathData', getAbsolutePath('./data'));
+      assert.equal(context.pathHtml, getAbsolutePath('./html'));
+      assert.equal(context.pathData, getAbsolutePath('./data'));
     });
 
     it('throw error on referencing an external path', () => {
@@ -102,7 +113,7 @@ describe('Gulp Json Loader', () => {
         JsonLoader(settings, testMode);
         assert.fail('should throw an error');
       } catch (error) {
-        expect(error.message).equal(constants.ERR_EXTERNAL_PATH);
+        assert.equal(error.message, constants.ERR_EXTERNAL_PATH);
       }
     });
   });
@@ -125,8 +136,8 @@ describe('Gulp Json Loader', () => {
       const cacheKeyData = 'src/data/pages/about.json';
 
       // Check out loaded data
-      expect(pocket).property('filename', 'about');
-      expect(pocket).property('$').eql({
+      assert.equal(pocket.filename, 'about');
+      assert.deepEqual(pocket.$, {
         name: 'About Us',
         href: 'about-us.html',
         visible: true,
@@ -136,8 +147,8 @@ describe('Gulp Json Loader', () => {
       });
 
       // Check out cached data
-      expect(ctx.cachedData).property(cacheKeyData).eql(pocket);
-      expect(ctx.cachedData).property(cacheKeyImports).eql(pocket.$.imports.genres);
+      assert.deepEqual(ctx.cachedData[cacheKeyData], pocket);
+      assert.deepEqual(ctx.cachedData[cacheKeyImports], pocket.$.imports.genres);
     });
   });
 
@@ -153,8 +164,8 @@ describe('Gulp Json Loader', () => {
       const importedData = await loadImportsAsync(context, imports, cachedData);
       const cacheKey = 'src/data/imports/genres.json';
 
-      expect(importedData).property('genres').eql(Imports.genres);
-      expect(cachedData).property(cacheKey).eql(Imports.genres);
+      assert.deepEqual(importedData.genres, Imports.genres);
+      assert.deepEqual(cachedData[cacheKey], Imports.genres);
     });
 
     it('import from cache', async () => {
@@ -173,7 +184,7 @@ describe('Gulp Json Loader', () => {
 
       const importedData = await loadImportsAsync(context, imports, cachedData);
 
-      expect(importedData).eql({
+      assert.deepEqual(importedData, {
         genres: cachedData[cacheKey]
       });
     });
@@ -184,7 +195,7 @@ describe('Gulp Json Loader', () => {
       const imports = [];
 
       const importedData = await loadImportsAsync(context, imports, cachedData);
-      expect(importedData).eql({});
+      assert.deepEqual(importedData, {});
     });
 
     it('throw error on non-array passed', async () => {
@@ -196,7 +207,7 @@ describe('Gulp Json Loader', () => {
         await loadImportsAsync(context, imports, cachedData);
         assert.fail('should throw an error');
       } catch (err) {
-        expect(err.message).equal('Imports should be an Array');
+        assert.equal(err.message, 'Imports should be an Array');
       }
     });
   });
@@ -219,13 +230,13 @@ describe('Gulp Json Loader', () => {
       };
 
       await loadImportsRecursively(options, (error, pocket) => {
-        expect(error).equal(null);
+        assert.equal(error, null);
 
-        expect(pocket).property('menu').eql(Imports.menu);
-        expect(pocket).property('genres').eql(Imports.genres);
+        assert.deepEqual(pocket.menu, Imports.menu);
+        assert.deepEqual(pocket.genres, Imports.genres);
 
-        expect(options.cachedData).property(cacheKeyMenu);
-        expect(options.cachedData).property(cacheKeyGenres);
+        assert.equal(options.cachedData.hasOwnProperty(cacheKeyMenu), true);
+        assert.equal(options.cachedData.hasOwnProperty(cacheKeyGenres), true);
       });
     });
 
@@ -241,8 +252,8 @@ describe('Gulp Json Loader', () => {
       };
 
       await loadImportsRecursively(options, (error, pocket) => {
-        expect(error.message).equal(constants.ERR_EXTERNAL_PATH);
-        expect(pocket).equal(null);
+        assert.equal(error.message, constants.ERR_EXTERNAL_PATH);
+        assert.equal(pocket, null);
       });
     });
   });
