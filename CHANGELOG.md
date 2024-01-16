@@ -2,7 +2,7 @@
 
 ### Refactors
 
-* **tests:**  update tests ([da00c2ad](https://github.com/yukal/gulp-json-loader/commit/da00c2ad5e2d1e292c8150e8818a4b4173f0fbaa))
+*  update tests ([da00c2ad](https://github.com/yukal/gulp-json-loader/commit/da00c2ad5e2d1e292c8150e8818a4b4173f0fbaa))
 
 ### Chores
 
@@ -11,13 +11,13 @@
 
 ### Continuous Integration
 
-* **action:**  update node matrix ([a6ca46f3](https://github.com/yukal/gulp-json-loader/commit/a6ca46f363d6f343b1941d5b25eaa31a0529542d))
+- **action:**  use latest stable nodejs ([bf570a7a](https://github.com/yukal/gulp-json-loader/commit/bf570a7a3cb03f555916c05ec4faf83817627ba6))
+- **action:**  update node matrix ([a6ca46f3](https://github.com/yukal/gulp-json-loader/commit/a6ca46f363d6f343b1941d5b25eaa31a0529542d))
 
 ## [v1.2.1](https://github.com/yukal/slim-validator/compare/v1.2.1...f7485d8fa2a84bc3ab4a2156ef62add21f8ae615)
 
 ### Build System / Dependencies
 
-* **deps-dev:**
 - **deps-dev:**  bump chai from 4.3.8 to 4.3.10 ([a0f02551](https://github.com/yukal/gulp-json-loader/commit/a0f02551bddefad86d2864cf1e42527d6ebbed0f))
 - **deps-dev:**  bump chai from 4.3.7 to 4.3.8 ([e5d80951](https://github.com/yukal/gulp-json-loader/commit/e5d80951f8f1245879924bd71db2b621e5409d91))
 - **deps-dev:**  bump mocha from 10.1.0 to 10.2.0 ([367897bb](https://github.com/yukal/gulp-json-loader/commit/367897bb4ed1b9812edc867a8c1fc18ffa92d974))
