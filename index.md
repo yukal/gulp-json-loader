@@ -1,4 +1,4 @@
-# gulp-json-loader
+# Gulp Json Loader
 A little tool for the [gulp-data](https://www.npmjs.com/package/gulp-data) plugin. It useful for automatically data loading in the development including the PUG files.
 
 ### What for
